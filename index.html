@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0f1e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Mi Entrenamiento" />
+  <meta name="description" content="Fitness Tracker para personal trainers" />
+
+  <title>Mi Entrenamiento</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== SPLASH / HOME ===== -->
+  <section id="screen-home" class="screen active">
+    <div class="home-bg-grid"></div>
+    <div class="home-content">
+      <div class="home-logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="20" width="8" height="8" rx="2" fill="var(--accent)"/>
+            <rect x="38" y="20" width="8" height="8" rx="2" fill="var(--accent)"/>
+            <rect x="10" y="16" width="4" height="16" rx="2" fill="var(--accent-dim)"/>
+            <rect x="34" y="16" width="4" height="16" rx="2" fill="var(--accent-dim)"/>
+            <rect x="14" y="22" width="20" height="4" rx="2" fill="white"/>
+          </svg>
+        </div>
+        <h1 class="app-title">Mi<br/>Entrenamiento</h1>
+      </div>
+      <p class="home-sub" id="home-greeting">Bienvenido, Atleta</p>
+      <nav class="home-nav">
+        <button class="nav-btn primary" onclick="goTo('screen-registro')">
+          <span class="nav-btn-icon">＋</span>
+          <span class="nav-btn-label">Registrar<br/><strong>Entrenamiento</strong></span>
+          <span class="nav-btn-arrow">→</span>
+        </button>
+        <button class="nav-btn" onclick="goTo('screen-progreso')">
+          <span class="nav-btn-icon">◈</span>
+          <span class="nav-btn-label">Mi<br/><strong>Progreso</strong></span>
+          <span class="nav-btn-arrow">→</span>
+        </button>
+        <button class="nav-btn" onclick="goTo('screen-config')">
+          <span class="nav-btn-icon">⊙</span>
+          <span class="nav-btn-label">Configu-<br/><strong>ración</strong></span>
+          <span class="nav-btn-arrow">→</span>
+        </button>
+      </nav>
+      <div class="home-stats">
+        <div class="stat-chip">
+          <span class="stat-num" id="stat-total">0</span>
+          <span class="stat-lbl">sesiones</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-chip">
+          <span class="stat-num" id="stat-week">0</span>
+          <span class="stat-lbl">esta semana</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-chip">
+          <span class="stat-num" id="stat-kg">0</span>
+          <span class="stat-lbl">kg máx</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REGISTRO ===== -->
+  <section id="screen-registro" class="screen">
+    <header class="topbar">
+      <button class="back-btn" onclick="goTo('screen-home')">← Volver</button>
+      <h2 class="topbar-title">Registrar</h2>
+      <div class="topbar-spacer"></div>
+    </header>
+    <div class="screen-body">
+      <div class="form-card">
+        <div class="form-row">
+          <label class="form-label">Tipo de ejercicio</label>
+          <select id="reg-tipo" class="form-select">
+            <option value="">Seleccioná...</option>
+            <option>Press de banca</option>
+            <option>Sentadilla</option>
+            <option>Peso muerto</option>
+            <option>Press militar</option>
+            <option>Dominadas</option>
+            <option>Remo con barra</option>
+            <option>Curl de bíceps</option>
+            <option>Tríceps polea</option>
+            <option>Zancadas</option>
+            <option>Hip thrust</option>
+            <option>Plancha</option>
+            <option>Cardio - Cinta</option>
+            <option>Cardio - Bici</option>
+            <option>Cardio - Elíptica</option>
+            <option value="__otro__">Otro...</option>
+          </select>
+          <input id="reg-tipo-custom" class="form-input hidden" placeholder="Escribí el ejercicio" />
+        </div>
+
+        <div class="form-row trio">
+          <div>
+            <label class="form-label">Series</label>
+            <input id="reg-series" type="number" class="form-input" placeholder="4" min="1" max="99" />
+          </div>
+          <div>
+            <label class="form-label">Reps</label>
+            <input id="reg-reps" type="number" class="form-input" placeholder="10" min="1" max="999" />
+          </div>
+          <div>
+            <label class="form-label">Peso (kg)</label>
+            <input id="reg-peso" type="number" class="form-input" placeholder="60" min="0" step="0.5" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">Notas</label>
+          <textarea id="reg-notas" class="form-textarea" rows="3" placeholder="Ej: aumenté 2.5kg respecto al martes..."></textarea>
+        </div>
+
+        <button class="btn-save" onclick="guardarEntrenamiento()">Guardar sesión ＋</button>
+        <div id="reg-feedback" class="feedback hidden"></div>
+      </div>
+
+      <div class="list-section">
+        <h3 class="list-title">Sesiones recientes</h3>
+        <div id="lista-entrenamientos" class="workout-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRESO ===== -->
+  <section id="screen-progreso" class="screen">
+    <header class="topbar">
+      <button class="back-btn" onclick="goTo('screen-home')">← Volver</button>
+      <h2 class="topbar-title">Mi Progreso</h2>
+      <div class="topbar-spacer"></div>
+    </header>
+    <div class="screen-body">
+      <div class="progress-summary">
+        <div class="summary-card">
+          <span class="summary-num" id="prog-total">0</span>
+          <span class="summary-lbl">Sesiones totales</span>
+        </div>
+        <div class="summary-card accent">
+          <span class="summary-num" id="prog-week">0</span>
+          <span class="summary-lbl">Esta semana</span>
+        </div>
+      </div>
+
+      <div class="chart-section">
+        <h3 class="section-title">Actividad — últimos 7 días</h3>
+        <div id="bar-chart" class="bar-chart"></div>
+      </div>
+
+      <div class="chart-section">
+        <h3 class="section-title">Peso máximo por ejercicio (kg)</h3>
+        <div id="peso-chart" class="bar-chart horizontal"></div>
+      </div>
+
+      <div class="danger-zone">
+        <button class="btn-danger" onclick="confirmarBorrado()">Borrar todos los datos</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONFIGURACIÓN ===== -->
+  <section id="screen-config" class="screen">
+    <header class="topbar">
+      <button class="back-btn" onclick="goTo('screen-home')">← Volver</button>
+      <h2 class="topbar-title">Configuración</h2>
+      <div class="topbar-spacer"></div>
+    </header>
+    <div class="screen-body">
+      <div class="form-card">
+        <div class="form-row">
+          <label class="form-label">Tu nombre</label>
+          <input id="cfg-nombre" type="text" class="form-input" placeholder="Ej: Lucía García" />
+        </div>
+        <div class="form-row">
+          <label class="form-label">Objetivo principal</label>
+          <div class="goal-grid" id="goal-grid">
+            <button class="goal-btn" data-val="grasa" onclick="selectGoal(this)">
+              <span class="goal-icon">🔥</span>
+              <span>Bajar grasa</span>
+            </button>
+            <button class="goal-btn" data-val="masa" onclick="selectGoal(this)">
+              <span class="goal-icon">💪</span>
+              <span>Ganar masa</span>
+            </button>
+            <button class="goal-btn" data-val="tonificar" onclick="selectGoal(this)">
+              <span class="goal-icon">⚡</span>
+              <span>Tonificar</span>
+            </button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Días de entrenamiento por semana</label>
+          <div class="days-picker" id="days-picker">
+            <button class="day-btn" data-val="3" onclick="selectDays(this)">3</button>
+            <button class="day-btn" data-val="4" onclick="selectDays(this)">4</button>
+            <button class="day-btn" data-val="5" onclick="selectDays(this)">5</button>
+            <button class="day-btn" data-val="6" onclick="selectDays(this)">6</button>
+          </div>
+        </div>
+        <button class="btn-save" onclick="guardarConfig()">Guardar configuración</button>
+        <div id="cfg-feedback" class="feedback hidden"></div>
+      </div>
+
+      <div class="about-card">
+        <p class="about-text">Mi Entrenamiento v1.0</p>
+        <p class="about-text dim">Todos los datos se guardan localmente en tu dispositivo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MODAL CONFIRMACIÓN ===== -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal-box">
+      <h3 class="modal-title">⚠️ Borrar datos</h3>
+      <p class="modal-text">Esta acción eliminará <strong>todos los entrenamientos registrados</strong>. No se puede deshacer.</p>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-modal-confirm" onclick="borrarTodo()">Sí, borrar todo</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
