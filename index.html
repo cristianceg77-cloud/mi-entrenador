@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0f1e" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Mi Entrenamiento" />
-  <meta name="description" content="Fitness Tracker para personal trainers" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+  <meta name="theme-color" content="#0a0f1e"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Mi Entrenamiento"/>
   <title>Mi Entrenamiento</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="apple-touch-icon" href="icons/icon-192.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
 </head>
 <body>
 
@@ -34,24 +33,44 @@
       </div>
       <h1 class="app-title">Mi<br/>Entrenamiento</h1>
     </div>
+
+    <div class="home-trainer" id="home-trainer-badge" style="display:none">
+      <div class="home-trainer-avatar" id="home-trainer-avatar">PT</div>
+      <div style="flex:1;min-width:0">
+        <div class="home-trainer-role">Entrenador/a</div>
+        <div class="home-trainer-name" id="home-trainer-name">—</div>
+      </div>
+    </div>
+
     <p class="home-sub" id="home-greeting">Bienvenido, Atleta</p>
-    <nav class="home-nav">
-      <button class="nav-btn primary" onclick="goTo('screen-registro')">
-        <span class="nav-btn-icon">+</span>
-        <span class="nav-btn-label">Registrar<br/><strong>Entrenamiento</strong></span>
-        <span class="nav-btn-arrow">&#8594;</span>
-      </button>
+
+    <!-- Botón principal -->
+    <button class="nav-btn primary" onclick="goTo('screen-registro')">
+      <span class="nav-btn-icon">+</span>
+      <span class="nav-btn-label">Registrar<br/><strong>Entrenamiento</strong></span>
+      <span class="nav-btn-arrow">&#8594;</span>
+    </button>
+
+    <!-- Grid 2x2 -->
+    <div class="home-nav-grid">
       <button class="nav-btn" onclick="goTo('screen-progreso')">
         <span class="nav-btn-icon">&#9672;</span>
-        <span class="nav-btn-label">Mi<br/><strong>Progreso</strong></span>
-        <span class="nav-btn-arrow">&#8594;</span>
+        <span class="nav-btn-label"><strong>Progreso</strong></span>
+      </button>
+      <button class="nav-btn" onclick="goTo('screen-medidas')">
+        <span class="nav-btn-icon">&#128207;</span>
+        <span class="nav-btn-label"><strong>Medidas</strong></span>
+      </button>
+      <button class="nav-btn" onclick="goTo('screen-objetivos')">
+        <span class="nav-btn-icon">&#127919;</span>
+        <span class="nav-btn-label"><strong>Objetivos</strong></span>
       </button>
       <button class="nav-btn" onclick="goTo('screen-config')">
         <span class="nav-btn-icon">&#9881;</span>
-        <span class="nav-btn-label">Configu-<br/><strong>raci&#243;n</strong></span>
-        <span class="nav-btn-arrow">&#8594;</span>
+        <span class="nav-btn-label"><strong>Config.</strong></span>
       </button>
-    </nav>
+    </div>
+
     <div class="home-stats">
       <div class="stat-chip">
         <span class="stat-num" id="stat-total">0</span>
@@ -84,41 +103,23 @@
         <label class="form-label">Tipo de ejercicio</label>
         <select id="reg-tipo" class="form-select">
           <option value="">Seleccion&#225;...</option>
-          <option>Press de banca</option>
-          <option>Sentadilla</option>
-          <option>Peso muerto</option>
-          <option>Press militar</option>
-          <option>Dominadas</option>
-          <option>Remo con barra</option>
-          <option>Curl de b&#237;ceps</option>
-          <option>Tr&#237;ceps polea</option>
-          <option>Zancadas</option>
-          <option>Hip thrust</option>
-          <option>Plancha</option>
-          <option>Cardio - Cinta</option>
-          <option>Cardio - Bici</option>
-          <option>Cardio - El&#237;ptica</option>
+          <option>Press de banca</option><option>Sentadilla</option><option>Peso muerto</option>
+          <option>Press militar</option><option>Dominadas</option><option>Remo con barra</option>
+          <option>Curl de b&#237;ceps</option><option>Tr&#237;ceps polea</option><option>Zancadas</option>
+          <option>Hip thrust</option><option>Plancha</option><option>Cardio - Cinta</option>
+          <option>Cardio - Bici</option><option>Cardio - El&#237;ptica</option>
           <option value="__otro__">Otro...</option>
         </select>
-        <input id="reg-tipo-custom" class="form-input hidden" placeholder="Escrib&#237; el ejercicio" />
+        <input id="reg-tipo-custom" class="form-input hidden" placeholder="Escrib&#237; el ejercicio"/>
       </div>
       <div class="form-row trio">
-        <div>
-          <label class="form-label">Series</label>
-          <input id="reg-series" type="number" class="form-input" placeholder="4" min="1" max="99" />
-        </div>
-        <div>
-          <label class="form-label">Reps</label>
-          <input id="reg-reps" type="number" class="form-input" placeholder="10" min="1" max="999" />
-        </div>
-        <div>
-          <label class="form-label">Peso (kg)</label>
-          <input id="reg-peso" type="number" class="form-input" placeholder="60" min="0" step="0.5" />
-        </div>
+        <div><label class="form-label">Series</label><input id="reg-series" type="number" class="form-input" placeholder="4" min="1" max="99"/></div>
+        <div><label class="form-label">Reps</label><input id="reg-reps" type="number" class="form-input" placeholder="10" min="1" max="999"/></div>
+        <div><label class="form-label">Peso (kg)</label><input id="reg-peso" type="number" class="form-input" placeholder="60" min="0" step="0.5"/></div>
       </div>
       <div class="form-row">
         <label class="form-label">Notas</label>
-        <textarea id="reg-notas" class="form-textarea" rows="3" placeholder="Ej: aument&#233; 2.5kg respecto al martes..."></textarea>
+        <textarea id="reg-notas" class="form-textarea" rows="2" placeholder="Ej: aument&#233; 2.5kg..."></textarea>
       </div>
       <button class="btn-save" onclick="guardarEntrenamiento()">Guardar sesi&#243;n +</button>
       <div id="reg-feedback" class="feedback hidden"></div>
@@ -134,10 +135,18 @@
 <section id="screen-progreso" class="screen">
   <header class="topbar">
     <button class="back-btn" onclick="goTo('screen-home')">&#8592; Volver</button>
-    <h2 class="topbar-title">Mi Progreso</h2>
+    <h2 class="topbar-title">Progreso</h2>
     <div class="topbar-spacer"></div>
   </header>
   <div class="screen-body">
+
+    <!-- Filtros -->
+    <div class="filtro-bar">
+      <button class="filtro-btn" data-f="dia"    onclick="setProgresoFiltro('dia')">D&#237;a</button>
+      <button class="filtro-btn active" data-f="semana" onclick="setProgresoFiltro('semana')">Semana</button>
+      <button class="filtro-btn" data-f="mes"    onclick="setProgresoFiltro('mes')">Mes</button>
+    </div>
+
     <div class="progress-summary">
       <div class="summary-card">
         <span class="summary-num" id="prog-total">0</span>
@@ -148,21 +157,144 @@
         <span class="summary-lbl">Esta semana</span>
       </div>
     </div>
+
     <div class="chart-section">
-      <h3 class="section-title">Actividad &#8212; &#250;ltimos 7 d&#237;as</h3>
+      <h3 class="section-title">Actividad por per&#237;odo</h3>
       <div id="bar-chart" class="bar-chart"></div>
     </div>
+
     <div class="chart-section">
-      <h3 class="section-title">Peso m&#225;ximo por ejercicio (kg)</h3>
+      <h3 class="section-title">Peso m&#225;ximo &amp; variaci&#243;n %</h3>
       <div id="peso-chart" class="bar-chart horizontal"></div>
     </div>
+
+    <div class="chart-section">
+      <h3 class="section-title">Sesiones del per&#237;odo</h3>
+      <div id="sesiones-filtradas"></div>
+    </div>
+
     <div class="danger-zone">
       <button class="btn-danger" onclick="confirmarBorrado()">Borrar todos los datos</button>
     </div>
   </div>
 </section>
 
-<!-- ===== CONFIGURACIÓN ===== -->
+<!-- ===== MEDIDAS ===== -->
+<section id="screen-medidas" class="screen">
+  <header class="topbar">
+    <button class="back-btn" onclick="goTo('screen-home')">&#8592; Volver</button>
+    <h2 class="topbar-title">Medidas</h2>
+    <div class="topbar-spacer"></div>
+  </header>
+  <div class="screen-body">
+
+    <!-- Último snapshot -->
+    <div class="chart-section">
+      <h3 class="section-title">&#218;ltimo registro</h3>
+      <div class="form-card" style="padding:14px">
+        <div id="medida-historial"><div class="empty-state">A\u00fan no hay medidas.</div></div>
+      </div>
+    </div>
+
+    <!-- Evolución -->
+    <div class="chart-section">
+      <h3 class="section-title">Evoluci&#243;n</h3>
+      <div id="medida-charts" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+
+    <!-- Nuevo registro -->
+    <div class="chart-section">
+      <h3 class="section-title">Nuevo registro de medidas</h3>
+      <div class="form-card">
+        <div class="form-label" style="margin-bottom:-4px">Peso corporal</div>
+        <input id="med-peso-corporal" type="number" class="form-input" placeholder="Ej: 75.5 kg" step="0.1" min="0"/>
+
+        <div class="form-label" style="margin-bottom:-4px">Cintura (cm)</div>
+        <input id="med-cintura" type="number" class="form-input" placeholder="Ej: 82" step="0.5" min="0"/>
+
+        <div class="form-label" style="margin-bottom:-4px">Gl&#250;teos (cm)</div>
+        <input id="med-gluteos" type="number" class="form-input" placeholder="Ej: 100" step="0.5" min="0"/>
+
+        <div class="form-label" style="margin-bottom:-4px">Piernas (cm)</div>
+        <div class="form-row trio">
+          <div><label class="form-label" style="font-size:9px">Izquierda</label><input id="med-pierna-izq" type="number" class="form-input" placeholder="55" step="0.5" min="0"/></div>
+          <div><label class="form-label" style="font-size:9px">Derecha</label><input id="med-pierna-der" type="number" class="form-input" placeholder="55" step="0.5" min="0"/></div>
+        </div>
+
+        <div class="form-label" style="margin-bottom:-4px">Brazos (cm)</div>
+        <div class="form-row trio">
+          <div><label class="form-label" style="font-size:9px">Izquierdo</label><input id="med-brazo-izq" type="number" class="form-input" placeholder="35" step="0.5" min="0"/></div>
+          <div><label class="form-label" style="font-size:9px">Derecho</label><input id="med-brazo-der" type="number" class="form-input" placeholder="35" step="0.5" min="0"/></div>
+        </div>
+
+        <button class="btn-save" onclick="guardarMedida()">Guardar medidas +</button>
+        <div id="med-feedback" class="feedback hidden"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OBJETIVOS ===== -->
+<section id="screen-objetivos" class="screen">
+  <header class="topbar">
+    <button class="back-btn" onclick="goTo('screen-home')">&#8592; Volver</button>
+    <h2 class="topbar-title">Objetivos</h2>
+    <div class="topbar-spacer"></div>
+  </header>
+  <div class="screen-body">
+
+    <!-- Lista de objetivos -->
+    <div id="goals-list" style="display:flex;flex-direction:column;gap:10px"></div>
+
+    <!-- Crear objetivo -->
+    <div class="chart-section">
+      <h3 class="section-title">Nuevo objetivo</h3>
+      <div class="form-card">
+        <div class="form-row">
+          <label class="form-label">Nombre del objetivo</label>
+          <input id="goal-nombre" type="text" class="form-input" placeholder="Ej: Llegar a 100kg en banca"/>
+        </div>
+        <div class="form-row trio">
+          <div>
+            <label class="form-label">Tipo</label>
+            <select id="goal-tipo" class="form-select">
+              <option value="sesiones">Sesiones</option>
+              <option value="ejercicio">Ejercicio (kg)</option>
+              <option value="peso">Peso corporal</option>
+              <option value="medida">Medida (cm)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Unidad</label>
+            <input id="goal-unidad" type="text" class="form-input" placeholder="kg / cm"/>
+          </div>
+        </div>
+        <div class="form-row trio">
+          <div>
+            <label class="form-label">Valor actual</label>
+            <input id="goal-actual" type="number" class="form-input" placeholder="0" step="0.1"/>
+          </div>
+          <div>
+            <label class="form-label">Meta</label>
+            <input id="goal-meta" type="number" class="form-input" placeholder="100" step="0.1"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Ejercicio (opcional)</label>
+          <input id="goal-ejercicio" type="text" class="form-input" placeholder="Ej: Press de banca"/>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Notas</label>
+          <textarea id="goal-notas" class="form-textarea" rows="2" placeholder="Ej: en 3 meses..."></textarea>
+        </div>
+        <button class="btn-save" onclick="guardarObjetivo()">Crear objetivo +</button>
+        <div id="goal-feedback" class="feedback hidden"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONFIG ===== -->
 <section id="screen-config" class="screen">
   <header class="topbar">
     <button class="back-btn" onclick="goTo('screen-home')">&#8592; Volver</button>
@@ -170,29 +302,25 @@
     <div class="topbar-spacer"></div>
   </header>
   <div class="screen-body">
-
-    <!-- Perfil -->
     <div class="form-card">
       <div class="form-row">
-        <label class="form-label">Tu nombre</label>
-        <input id="cfg-nombre" type="text" class="form-input" placeholder="Ej: Luc&#237;a Garc&#237;a" />
+        <label class="form-label">Tu nombre (atleta)</label>
+        <input id="cfg-nombre" type="text" class="form-input" placeholder="Ej: Luc&#237;a Garc&#237;a"/>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Nombre del entrenador/a</label>
+        <input id="cfg-trainer" type="text" class="form-input" placeholder="Ej: Prof. Mart&#237;n L&#243;pez"/>
       </div>
       <div class="form-row">
         <label class="form-label">Objetivo principal</label>
-        <div class="goal-grid">
-          <button class="goal-btn" data-val="grasa" onclick="selectGoal(this)">
-            <span class="goal-icon">&#128293;</span><span>Bajar grasa</span>
-          </button>
-          <button class="goal-btn" data-val="masa" onclick="selectGoal(this)">
-            <span class="goal-icon">&#128170;</span><span>Ganar masa</span>
-          </button>
-          <button class="goal-btn" data-val="tonificar" onclick="selectGoal(this)">
-            <span class="goal-icon">&#9889;</span><span>Tonificar</span>
-          </button>
+        <div class="goal-grid-cfg">
+          <button class="goal-btn" data-val="grasa" onclick="selectGoal(this)"><span class="goal-icon">&#128293;</span><span>Bajar grasa</span></button>
+          <button class="goal-btn" data-val="masa" onclick="selectGoal(this)"><span class="goal-icon">&#128170;</span><span>Ganar masa</span></button>
+          <button class="goal-btn" data-val="tonificar" onclick="selectGoal(this)"><span class="goal-icon">&#9889;</span><span>Tonificar</span></button>
         </div>
       </div>
       <div class="form-row">
-        <label class="form-label">D&#237;as de entrenamiento por semana</label>
+        <label class="form-label">D&#237;as de entrenamiento / semana</label>
         <div class="days-picker">
           <button class="day-btn" data-val="3" onclick="selectDays(this)">3</button>
           <button class="day-btn" data-val="4" onclick="selectDays(this)">4</button>
@@ -204,84 +332,52 @@
       <div id="cfg-feedback" class="feedback hidden"></div>
     </div>
 
-    <!-- Temas -->
     <div class="section-card">
       <div class="section-card-title">&#127774; Tema de color</div>
       <div class="theme-grid" id="theme-grid"></div>
-
-      <!-- Personalizaci&#243;n custom -->
       <div style="border-top:1px solid var(--border);padding-top:14px;display:flex;flex-direction:column;gap:12px">
         <div class="form-label" style="margin:0">Colores personalizados</div>
         <div class="color-picker-row">
-          <div class="cp-item">
-            <label>Fondo</label>
-            <input type="color" id="cp-bg" value="#0a0f1e" />
-          </div>
-          <div class="cp-item">
-            <label>Superficie</label>
-            <input type="color" id="cp-surface" value="#1a2540" />
-          </div>
-          <div class="cp-item">
-            <label>Acento 1</label>
-            <input type="color" id="cp-accent" value="#4d9fff" />
-          </div>
-          <div class="cp-item">
-            <label>Acento 2</label>
-            <input type="color" id="cp-accent2" value="#00e5c0" />
-          </div>
-          <div class="cp-item">
-            <label>Texto</label>
-            <input type="color" id="cp-text" value="#e8edf8" />
-          </div>
+          <div class="cp-item"><label>Fondo</label><input type="color" id="cp-bg" value="#0a0f1e"/></div>
+          <div class="cp-item"><label>Superficie</label><input type="color" id="cp-surface" value="#1a2540"/></div>
+          <div class="cp-item"><label>Acento 1</label><input type="color" id="cp-accent" value="#4d9fff"/></div>
+          <div class="cp-item"><label>Acento 2</label><input type="color" id="cp-accent2" value="#00e5c0"/></div>
+          <div class="cp-item"><label>Texto</label><input type="color" id="cp-text" value="#e8edf8"/></div>
         </div>
         <button class="btn-secondary" onclick="applyCustomColors()">&#10003; Aplicar mis colores</button>
       </div>
     </div>
 
-    <!-- Datos -->
     <div class="section-card">
       <div class="section-card-title">&#128190; Mis datos</div>
-      <div class="data-stat-row">
-        <span class="data-stat-label">Entrenamientos guardados</span>
-        <span class="data-stat-val" id="ds-total">0</span>
-      </div>
-      <div class="data-stat-row">
-        <span class="data-stat-label">Primer registro</span>
-        <span class="data-stat-val" id="ds-first">&#8212;</span>
-      </div>
-      <div class="data-stat-row">
-        <span class="data-stat-label">Tama&#241;o de datos</span>
-        <span class="data-stat-val" id="ds-size">0B</span>
-      </div>
+      <div class="data-stat-row"><span class="data-stat-label">Sesiones guardadas</span><span class="data-stat-val" id="ds-total">0</span></div>
+      <div class="data-stat-row"><span class="data-stat-label">Primer registro</span><span class="data-stat-val" id="ds-first">&#8212;</span></div>
+      <div class="data-stat-row"><span class="data-stat-label">Tama&#241;o de datos</span><span class="data-stat-val" id="ds-size">0B</span></div>
       <div class="data-actions">
-        <button class="btn-secondary" onclick="exportData()">
-          &#8593; Exportar JSON
-        </button>
-        <button class="btn-secondary" onclick="triggerImport()">
-          &#8595; Importar JSON
-        </button>
+        <button class="btn-secondary" onclick="exportData()">&#8593; Exportar JSON</button>
+        <button class="btn-secondary" onclick="triggerImport()">&#8595; Importar JSON</button>
       </div>
-      <input type="file" id="import-file-input" accept=".json" onchange="handleImport(event)" />
+      <input type="file" id="import-file-input" accept=".json" onchange="handleImport(event)"/>
       <button class="btn-secondary" onclick="cargarDemoData()" style="background:rgba(0,229,192,0.06);border-color:rgba(0,229,192,0.3);color:var(--accent2)">
         &#9654; Cargar datos de prueba
       </button>
     </div>
 
     <div class="about-card">
-      <p class="about-text">Mi Entrenamiento v2.0</p>
+      <p class="about-text">Mi Entrenamiento v3.0</p>
       <p class="about-text dim">Todos los datos se guardan localmente en tu dispositivo.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== MODAL CONFIRMACIÓN ===== -->
+<!-- ===== MODAL BORRAR ===== -->
 <div id="modal-overlay" class="modal-overlay hidden">
   <div class="modal-box">
     <h3 class="modal-title">&#9888;&#65039; Borrar datos</h3>
-    <p class="modal-text">Esta acci&#243;n eliminar&#225; <strong>todos los entrenamientos registrados</strong>. No se puede deshacer.</p>
+    <p class="modal-text">Esto eliminar&#225; <strong>todos los entrenamientos</strong>. No se puede deshacer.</p>
     <div class="modal-actions">
       <button class="btn-modal-cancel" onclick="cerrarModal()">Cancelar</button>
-      <button class="btn-modal-confirm" onclick="borrarTodo()">S&#237;, borrar todo</button>
+      <button class="btn-modal-confirm" onclick="borrarTodo()">S&#237;, borrar</button>
     </div>
   </div>
 </div>
@@ -293,6 +389,20 @@
     <p class="modal-text" id="modal-info-body"></p>
     <div class="modal-actions">
       <button class="btn-modal-ok" onclick="cerrarModal()">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL ACTUALIZAR OBJETIVO ===== -->
+<div id="modal-update-goal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3 class="modal-title" id="modal-upd-title">Actualizar progreso</h3>
+    <p class="modal-text" id="modal-upd-meta"></p>
+    <input type="hidden" id="modal-upd-id"/>
+    <input id="modal-upd-actual" type="number" class="form-input" placeholder="Valor actual" step="0.1" style="margin-top:4px"/>
+    <div class="modal-actions">
+      <button class="btn-modal-cancel" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-modal-ok" onclick="saveUpdateGoal()">Guardar</button>
     </div>
   </div>
 </div>
