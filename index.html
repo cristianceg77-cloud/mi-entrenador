@@ -602,6 +602,25 @@
         <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" />
       </div>
       <button class="btn btn-primary btn-block" onclick="handleLogin()" id="btn-login">Entrar →</button>
+      <div style="text-align:center; margin-top:14px;">
+        <span onclick="showForgotPassword()" style="font-size:13px; color:var(--text2); cursor:pointer; text-decoration:underline; text-underline-offset:3px;">¿Olvidaste tu contraseña?</span>
+      </div>
+    </div>
+
+    <!-- FORGOT PASSWORD -->
+    <div id="form-forgot" class="card hidden">
+      <div style="margin-bottom:16px;">
+        <div style="font-family:'Syne',sans-serif; font-size:16px; font-weight:800; margin-bottom:6px;">Recuperar contraseña</div>
+        <div style="font-size:13px; color:var(--text2);">Te enviamos un link para crear una nueva contraseña.</div>
+      </div>
+      <div class="form-group">
+        <label>Email de tu cuenta</label>
+        <input type="email" id="forgot-email" placeholder="tu@email.com" autocomplete="email" />
+      </div>
+      <button class="btn btn-primary btn-block" onclick="handleForgotPassword()" id="btn-forgot">Enviar link →</button>
+      <div style="text-align:center; margin-top:14px;">
+        <span onclick="switchAuthTab('login')" style="font-size:13px; color:var(--text2); cursor:pointer; text-decoration:underline; text-underline-offset:3px;">← Volver al login</span>
+      </div>
     </div>
 
     <!-- REGISTER -->
@@ -974,6 +993,39 @@
 
   function authAlert(msg, type = 'error') {
     document.getElementById('auth-alert').innerHTML = `<div class="alert alert-${type}">${msg}</div>`
+  }
+
+  window.showForgotPassword = () => {
+    document.getElementById('form-login').classList.add('hidden')
+    document.getElementById('form-register').classList.add('hidden')
+    document.getElementById('form-forgot').classList.remove('hidden')
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'))
+    document.getElementById('auth-alert').innerHTML = ''
+  }
+
+  // Override switchAuthTab para ocultar forgot también
+  const _origSwitchTab = window.switchAuthTab
+  window.switchAuthTab = (tab) => {
+    document.getElementById('form-forgot').classList.add('hidden')
+    _origSwitchTab(tab)
+  }
+
+  window.handleForgotPassword = async () => {
+    const btn = document.getElementById('btn-forgot')
+    const email = document.getElementById('forgot-email').value.trim()
+    if (!email) return authAlert('Ingresá tu email')
+
+    btn.textContent = '...'
+    const redirectTo = window.location.origin + window.location.pathname
+    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo })
+    btn.textContent = 'Enviar link →'
+
+    if (error) {
+      authAlert('Error: ' + error.message)
+    } else {
+      authAlert('✅ Revisá tu email — te enviamos el link para restablecer la contraseña.', 'success')
+      document.getElementById('forgot-email').value = ''
+    }
   }
 
   window.handleLogin = async () => {
