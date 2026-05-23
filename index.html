@@ -588,7 +588,15 @@
       if (error.message.includes('already registered')) authAlert('Ese nombre de usuario ya existe, elegí otro')
       else authAlert('Error: ' + error.message)
     } else {
-      authAlert('✅ ¡Cuenta creada! Ya podés iniciar sesión.', 'success')
+      // Iniciar sesión automáticamente después del registro
+      const { data: loginData, error: loginError } = await sb.auth.signInWithPassword({ email, password })
+      if (loginError) {
+        authAlert('✅ ¡Cuenta creada! Iniciá sesión con tu usuario y contraseña.', 'success')
+      } else if (loginData?.session) {
+        currentUser = loginData.session.user
+        await loadProfile()
+        showApp()
+      }
       document.getElementById('reg-name').value = ''
       document.getElementById('reg-username').value = ''
       document.getElementById('reg-password').value = ''
