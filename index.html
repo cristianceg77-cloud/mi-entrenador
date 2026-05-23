@@ -486,7 +486,13 @@
   const SUPABASE_URL = 'https://prsusgfyldmmwqpawsrl.supabase.co'
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByc3VzZ2Z5bGRtbXdxcGF3c3JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxODY3NTQsImV4cCI6MjA5Mzc2Mjc1NH0.qFCsfHOKZuCGbbPRfRr6gA6QtguxtjpdRDiAdFgVpFo'
   const DOMAIN = 'mientrenamiento.app'
-  const sb = createClient(SUPABASE_URL, SUPABASE_KEY)
+  const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: {
+    detectSessionInUrl: true,
+    persistSession: true,
+    autoRefreshToken: true
+  }
+})
 
   let currentUser = null, currentProfile = null
   let measureChart = null, workoutsData = [], measuresData = []
