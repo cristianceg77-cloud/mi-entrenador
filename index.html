@@ -486,13 +486,7 @@
   const SUPABASE_URL = 'https://prsusgfyldmmwqpawsrl.supabase.co'
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByc3VzZ2Z5bGRtbXdxcGF3c3JsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxODY3NTQsImV4cCI6MjA5Mzc2Mjc1NH0.qFCsfHOKZuCGbbPRfRr6gA6QtguxtjpdRDiAdFgVpFo'
   const DOMAIN = 'mientrenamiento.app'
-  const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth: {
-    detectSessionInUrl: true,
-    persistSession: true,
-    autoRefreshToken: true
-  }
-})
+  const sb = createClient(SUPABASE_URL, SUPABASE_KEY)
 
   let currentUser = null, currentProfile = null
   let measureChart = null, workoutsData = [], measuresData = []
@@ -563,9 +557,15 @@
     if (!username || !password) return authAlert('Completá todos los campos')
     btn.textContent = '...'
     const email = usernameToEmail(username)
-    const { error } = await sb.auth.signInWithPassword({ email, password })
+    const { data, error } = await sb.auth.signInWithPassword({ email, password })
     btn.textContent = 'Entrar →'
-    if (error) authAlert('Usuario o contraseña incorrectos')
+    if (error) {
+      authAlert('Usuario o contraseña incorrectos')
+    } else if (data?.session) {
+      currentUser = data.session.user
+      await loadProfile()
+      showApp()
+    }
   }
 
   window.handleRegister = async () => {
